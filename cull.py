@@ -95,14 +95,15 @@ def gather(threshold, now):
         if tid:
             tab_counts[tid] = tab_counts.get(tid, 0) + 1
 
-    candidates, unknown = [], 0
+    candidates, unknown = [], {}
     for a in agents:
         if not a.get("agent") or a.get("agent_status") == "working":
             continue
         value = (a.get("agent_session") or {}).get("value")
         mt = session_mtime(a.get("agent"), value)
         if mt is None:
-            unknown += 1
+            ag = a.get("agent") or "unknown"
+            unknown[ag] = unknown.get(ag, 0) + 1
             continue
         age = (now - mt) / 3600.0
         if age < threshold:
@@ -194,13 +195,29 @@ def select(candidates, threshold):
     return chosen or None
 
 
+def skipped_note(unknown):
+    """Explain, calmly, which non-working agent panes couldn't be aged."""
+    if not unknown:
+        return ""
+    bits = []
+    for agent, n in sorted(unknown.items()):
+        panes = "pane" if n == 1 else "panes"
+        if agent == "codex":
+            bits.append(f"{n} Codex {panes} (herdr reports no Codex session id yet)")
+        elif agent == "unknown":
+            bits.append(f"{n} {panes} with no detected agent")
+        else:
+            bits.append(f"{n} {agent} {panes} with no session transcript")
+    return "\n  Not shown: " + "; ".join(bits) + "."
+
+
 def main():
     threshold = idle_hours()
     now = time.time()
     candidates, tab_counts, unknown = gather(threshold, now)
 
     if LIST_ONLY:
-        print(f"threshold={threshold:g}h  candidates={len(candidates)}  unknown_age={unknown}")
+        print(f"threshold={threshold:g}h  candidates={len(candidates)}  unknown_age={sum(unknown.values())}")
         for c in candidates:
             kind, ident, _ = plan([c], tab_counts)[0]
             print(f"  {c['age']:6.2f}h  {c['status']:<7} {c['agent']:<6} {c['pane_id']} "
@@ -208,8 +225,7 @@ def main():
         return
 
     if not candidates:
-        extra = f" ({unknown} had no readable session file)" if unknown else ""
-        print(f"✓ No agent panes idle ≥ {threshold:g}h.{extra}")
+        print(f"✓ No agent panes idle ≥ {threshold:g}h.{skipped_note(unknown)}")
         pause()
         return
 

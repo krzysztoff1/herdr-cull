@@ -28,7 +28,7 @@ something*. So staleness is measured from the modification time of the agent's
 
 > **Codex note:** herdr does not yet report a session id for Codex panes, so
 > `herdr-cull` can't tie a Codex pane to its rollout file — those panes are
-> **skipped** (shown in the "no readable session file" count), never closed. The
+> **skipped** (surfaced as a calm "Not shown: N Codex panes" note), never closed. The
 > lookup above already works and will light up automatically once herdr exposes a
 > Codex session handle. Correlating by directory was considered and rejected: two
 > Codex panes in the same repo would be indistinguishable, and mis-attributing a

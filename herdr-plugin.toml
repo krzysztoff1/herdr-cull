@@ -8,7 +8,7 @@
 
 id = "herdr-cull"
 name = "Cull (idle agent panes)"
-version = "0.1.0"
+version = "0.1.1"
 description = "Review and close herdr agent panes whose agent session has gone idle past a threshold (default 4h). fzf multi-select — nothing closes without your confirmation."
 min_herdr_version = "0.7.0"
 platforms = ["linux", "macos"]
