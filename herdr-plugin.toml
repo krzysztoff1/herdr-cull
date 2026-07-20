@@ -1,0 +1,34 @@
+# herdr-plugin.toml — manifest for herdr-cull.
+#
+# Finds agent panes (Claude, Codex, …) whose session transcript hasn't been
+# touched for longer than a configurable idle threshold, and lets you review them
+# in an fzf multi-select before closing. Nothing is ever closed without your
+# confirmation. The overlay appears ONLY in response to the `open` action — there
+# are no event hooks, so the plugin does nothing until you ask.
+
+id = "herdr-cull"
+name = "Cull (idle agent panes)"
+version = "0.1.0"
+description = "Review and close herdr agent panes whose agent session has gone idle past a threshold (default 4h). fzf multi-select — nothing closes without your confirmation."
+min_herdr_version = "0.7.0"
+platforms = ["linux", "macos"]
+
+# The review UI. The `open` action summons it. It runs in an overlay so fzf gets
+# a real TTY (an action runs on the server without one). Located via
+# $HERDR_PLUGIN_ROOT because herdr spawns the pane with cwd = the launcher's
+# --cwd, not the plugin root — a bare relative path would fail to resolve.
+[[panes]]
+id = "cull"
+title = "Cull idle agents"
+placement = "overlay"
+command = ["bash", "-c", "exec bash \"$HERDR_PLUGIN_ROOT/run.sh\""]
+
+# Summon the review overlay. Runs on the herdr server (no TTY), so it cannot run
+# fzf itself — it just opens the `cull` overlay pane above. cwd defaults to the
+# plugin root for actions, so the relative open.sh path resolves.
+[[actions]]
+id = "open"
+title = "Review & close idle agent panes"
+description = "List agent panes idle past the threshold and close the ones you pick (fzf multi-select)."
+contexts = ["workspace"]
+command = ["bash", "open.sh"]
