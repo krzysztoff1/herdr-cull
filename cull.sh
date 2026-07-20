@@ -13,7 +13,6 @@
 set -uo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 shopt -s nullglob
-shopt -s globstar 2>/dev/null || true
 
 herdr="${HERDR_BIN_PATH:-herdr}"
 LIST_ONLY="${CULL_LIST_ONLY:-0}"
@@ -53,7 +52,14 @@ session_mtime() {
   local files=()
   [ -n "$val" ] || return 0
   [ "$agent" != "codex" ]  && files+=( "$HOME"/.claude/projects/*/"$val".jsonl )
-  [ "$agent" != "claude" ] && files+=( "$HOME"/.codex/sessions/**/*"$val"*.jsonl )
+  if [ "$agent" != "claude" ]; then
+    # Codex rollouts nest as ~/.codex/sessions/YYYY/MM/DD/rollout-*<uuid>*.jsonl.
+    # Resolve with find, not a `**` glob: the bash running this is often 3.2
+    # (macOS system bash) with no globstar, where `**` collapses to a single
+    # level and silently misses the file even when the UUID is correct.
+    while IFS= read -r f; do [ -n "$f" ] && files+=( "$f" ); done < <(
+      find "$HOME/.codex/sessions" -type f -name "rollout-*${val}*.jsonl" 2>/dev/null)
+  fi
   [ ${#files[@]} -gt 0 ] || return 0
   for f in "${files[@]}"; do
     m="$(mtime "$f")" || true
