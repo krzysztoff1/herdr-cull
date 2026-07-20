@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="408" viewBox="0 0 960 408" font-family="'JetBrains Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace" font-size="15">
+  <!-- terminal window -->
+  <rect x="0" y="0" width="960" height="408" rx="11" fill="#191724"/>
+  <rect x="0.5" y="0.5" width="959" height="407" rx="10.5" fill="none" stroke="#26233a" stroke-width="1"/>
+
+  <!-- title bar -->
+  <circle cx="24" cy="20" r="6" fill="#eb6f92"/>
+  <circle cx="44" cy="20" r="6" fill="#f6c177"/>
+  <circle cx="64" cy="20" r="6" fill="#9ccfd8"/>
+  <text x="480" y="25" text-anchor="middle" fill="#6e6a86">herdr · cull — review idle agents</text>
+
+  <!-- fzf overlay border -->
+  <rect x="16" y="44" width="928" height="348" rx="8" fill="#1f1d2e" stroke="#403d52" stroke-width="1.5"/>
+
+  <!-- header (2 lines) -->
+  <text x="40" y="78" fill="#e0def4">Agent panes idle ≥ 4h — review before closing</text>
+  <text x="40" y="100" fill="#6e6a86">Tab mark · Ctrl-A all · Enter close marked · Esc cancel</text>
+
+  <!-- prompt + block cursor -->
+  <text x="32" y="134" fill="#c4a7e7">close ▸</text>
+  <rect x="103" y="122" width="9" height="17" rx="1" fill="#e0def4" opacity="0.75"/>
+
+  <!-- counter + divider -->
+  <text x="40" y="162" fill="#f6c177">6/6</text>
+  <text x="78" y="162" fill="#6e6a86">(2)</text>
+  <line x1="112" y1="157" x2="920" y2="157" stroke="#403d52" stroke-width="1"/>
+
+  <!-- current row highlight (row 1) -->
+  <rect x="20" y="180" width="920" height="30" rx="4" fill="#2a2740"/>
+  <rect x="20" y="180" width="3" height="30" rx="1.5" fill="#c4a7e7"/>
+
+  <!-- ================= rows ================= -->
+  <!-- row 1: pointer + marked, very stale (red) -->
+  <text x="30" y="201" fill="#f6c177">▶</text>
+  <text x="50" y="201" fill="#eb6f92">✗</text>
+  <text x="74" y="201" fill="#eb6f92">9.3h idle</text>
+  <text x="170" y="201" fill="#403d52">│</text>
+  <text x="188" y="201" fill="#e0def4">Refactor auth middleware</text>
+  <text x="474" y="201" fill="#403d52">│</text>
+  <text x="492" y="201" fill="#9ccfd8">claude</text>
+  <text x="580" y="201" fill="#403d52">│</text>
+  <text x="598" y="201" fill="#6e6a86">~/dev/acme-api</text>
+
+  <!-- row 2: marked, very stale (red) -->
+  <text x="50" y="233" fill="#eb6f92">✗</text>
+  <text x="74" y="233" fill="#eb6f92">8.1h idle</text>
+  <text x="170" y="233" fill="#403d52">│</text>
+  <text x="188" y="233" fill="#e0def4">Chase down flaky CI on main</text>
+  <text x="474" y="233" fill="#403d52">│</text>
+  <text x="492" y="233" fill="#9ccfd8">claude</text>
+  <text x="580" y="233" fill="#403d52">│</text>
+  <text x="598" y="233" fill="#6e6a86">~/dev/acme-web</text>
+
+  <!-- row 3: stale (gold) -->
+  <text x="74" y="265" fill="#f6c177">5.4h idle</text>
+  <text x="170" y="265" fill="#403d52">│</text>
+  <text x="188" y="265" fill="#e0def4">Draft v2 API migration plan</text>
+  <text x="474" y="265" fill="#403d52">│</text>
+  <text x="492" y="265" fill="#9ccfd8">claude</text>
+  <text x="580" y="265" fill="#403d52">│</text>
+  <text x="598" y="265" fill="#6e6a86">~/work/payments</text>
+
+  <!-- row 4: stale (gold) -->
+  <text x="74" y="297" fill="#f6c177">4.9h idle</text>
+  <text x="170" y="297" fill="#403d52">│</text>
+  <text x="188" y="297" fill="#e0def4">Write up incident postmortem</text>
+  <text x="474" y="297" fill="#403d52">│</text>
+  <text x="492" y="297" fill="#9ccfd8">claude</text>
+  <text x="580" y="297" fill="#403d52">│</text>
+  <text x="598" y="297" fill="#6e6a86">~/work/notifier</text>
+
+  <!-- row 5: stale (gold) -->
+  <text x="74" y="329" fill="#f6c177">4.3h idle</text>
+  <text x="170" y="329" fill="#403d52">│</text>
+  <text x="188" y="329" fill="#e0def4">Prototype CSV export endpoint</text>
+  <text x="474" y="329" fill="#403d52">│</text>
+  <text x="492" y="329" fill="#9ccfd8">claude</text>
+  <text x="580" y="329" fill="#403d52">│</text>
+  <text x="598" y="329" fill="#6e6a86">~/dev/acme-api</text>
+
+  <!-- row 6: stale (gold) -->
+  <text x="74" y="361" fill="#f6c177">4.1h idle</text>
+  <text x="170" y="361" fill="#403d52">│</text>
+  <text x="188" y="361" fill="#e0def4">Bump deps and fix lint</text>
+  <text x="474" y="361" fill="#403d52">│</text>
+  <text x="492" y="361" fill="#9ccfd8">claude</text>
+  <text x="580" y="361" fill="#403d52">│</text>
+  <text x="598" y="361" fill="#6e6a86">~/sandbox/scratch</text>
+</svg>
