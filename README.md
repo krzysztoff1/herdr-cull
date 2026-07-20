@@ -15,7 +15,7 @@ one review overlay — the **stale** ones (idle past a threshold) flagged at the
 top, the **active-recently** ones grouped below and still selectable — and closes
 only what you pick. Nothing is closed without your say-so.
 
-![herdr-cull review overlay — agent panes in an fzf multi-select](docs/screenshot.svg)
+![herdr-cull — reviewing and closing idle agent panes in one overlay](docs/demo.gif)
 
 ## Two groups, all selectable
 
