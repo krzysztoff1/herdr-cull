@@ -1,15 +1,15 @@
 # herdr-plugin.toml — manifest for herdr-cull.
 #
-# Finds agent panes (Claude, Codex, …) whose session transcript hasn't been
-# touched for longer than a configurable idle threshold, and lets you review them
-# in an fzf multi-select before closing. Nothing is ever closed without your
-# confirmation. The overlay appears ONLY in response to the `open` action — there
-# are no event hooks, so the plugin does nothing until you ask.
+# Lists every non-working agent pane (Claude, Codex, …) in one review overlay,
+# split into two groups — "stale" (idle past a threshold) and "active recently"
+# — as an fzf multi-select. Both groups are selectable; nothing is ever closed
+# without your confirmation. The overlay appears ONLY in response to the `open`
+# action — there are no event hooks, so the plugin does nothing until you ask.
 
 id = "herdr-cull"
 name = "Cull (idle agent panes)"
-version = "0.2.0"
-description = "Review and close herdr agent panes whose agent session has gone idle past a threshold (default 4h). fzf multi-select — nothing closes without your confirmation."
+version = "0.4.0"
+description = "Review and close herdr agent panes in one fzf overlay — stale sessions (idle past a threshold, default 4h) flagged on top, active-recently ones still selectable below. Nothing closes without your confirmation."
 min_herdr_version = "0.7.0"
 platforms = ["linux", "macos"]
 
@@ -19,7 +19,7 @@ platforms = ["linux", "macos"]
 # --cwd, not the plugin root — a bare relative path would fail to resolve.
 [[panes]]
 id = "cull"
-title = "Cull idle agents"
+title = "Cull agent panes"
 placement = "overlay"
 command = ["bash", "-c", "exec bash \"$HERDR_PLUGIN_ROOT/cull.sh\""]
 
@@ -28,7 +28,7 @@ command = ["bash", "-c", "exec bash \"$HERDR_PLUGIN_ROOT/cull.sh\""]
 # plugin root for actions, so the relative open.sh path resolves.
 [[actions]]
 id = "open"
-title = "Review & close idle agent panes"
-description = "List agent panes idle past the threshold and close the ones you pick (fzf multi-select)."
+title = "Review & close agent panes"
+description = "Review agent panes in an fzf overlay — stale ones flagged, all selectable — and close the ones you pick."
 contexts = ["workspace"]
 command = ["bash", "open.sh"]
