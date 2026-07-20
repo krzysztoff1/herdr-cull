@@ -13,7 +13,7 @@ of them finish, go quiet, and just sit there for hours. `herdr-cull` finds those
 stale panes and lets you clear them out — but always shows you the list first, so
 nothing is closed without your say-so.
 
-![fzf multi-select of idle agent panes](docs/screenshot.png)
+![herdr-cull review overlay — idle agent panes in an fzf multi-select](docs/screenshot.svg)
 
 ## How it decides what's "idle"
 
@@ -28,11 +28,11 @@ something*. So staleness is measured from the modification time of the agent's
 
 > **Codex note:** herdr does not yet report a session id for Codex panes, so
 > `herdr-cull` can't tie a Codex pane to its rollout file — those panes are
-> **skipped** (surfaced as a calm "Not shown: N Codex panes" note), never closed. The
-> lookup above already works and will light up automatically once herdr exposes a
-> Codex session handle. Correlating by directory was considered and rejected: two
-> Codex panes in the same repo would be indistinguishable, and mis-attributing a
-> pane is exactly the mistake this tool exists to avoid.
+> **skipped** (surfaced as a calm "Not shown: N Codex panes" note), never closed.
+> The lookup above already works and will light up automatically once herdr
+> exposes a Codex session handle. Correlating by directory was considered and
+> rejected: two Codex panes in the same repo would be indistinguishable, and
+> mis-attributing a pane is exactly the mistake this tool exists to avoid.
 
 A pane is a candidate when **all** of these hold:
 
@@ -88,9 +88,11 @@ idle_hours = 8
 ## Requirements
 
 - herdr ≥ 0.7.0
-- Python 3 (standard library only)
-- [fzf](https://github.com/junegunn/fzf) — recommended for the multi-select UI.
+- **bash** ≥ 3.2, **[jq](https://jqlang.github.io/jq/)**, and coreutils (`stat`, `awk`, `sed`) — all standard on macOS/Linux
+- **[fzf](https://github.com/junegunn/fzf)** — recommended for the multi-select UI.
   Without it, `herdr-cull` falls back to a simple per-pane `[y/N]` prompt.
+
+No compiler, runtime, or build step: it's plain shell + jq.
 
 ## Install
 

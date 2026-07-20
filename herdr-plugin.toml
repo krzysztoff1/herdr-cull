@@ -8,7 +8,7 @@
 
 id = "herdr-cull"
 name = "Cull (idle agent panes)"
-version = "0.1.1"
+version = "0.2.0"
 description = "Review and close herdr agent panes whose agent session has gone idle past a threshold (default 4h). fzf multi-select — nothing closes without your confirmation."
 min_herdr_version = "0.7.0"
 platforms = ["linux", "macos"]
@@ -21,7 +21,7 @@ platforms = ["linux", "macos"]
 id = "cull"
 title = "Cull idle agents"
 placement = "overlay"
-command = ["bash", "-c", "exec bash \"$HERDR_PLUGIN_ROOT/run.sh\""]
+command = ["bash", "-c", "exec bash \"$HERDR_PLUGIN_ROOT/cull.sh\""]
 
 # Summon the review overlay. Runs on the herdr server (no TTY), so it cannot run
 # fzf itself — it just opens the `cull` overlay pane above. cwd defaults to the
