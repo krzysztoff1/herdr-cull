@@ -34,19 +34,20 @@ herdr knows an agent's *status* (`idle` / `working`) but not *when it last did
 something*. So idle time is measured from the modification time of the agent's
 **session transcript**, which Claude and Codex append to on every turn:
 
-| Agent  | Transcript looked up at                        | Status              |
-| ------ | ---------------------------------------------- | ------------------- |
-| Claude | `~/.claude/projects/*/<session-id>.jsonl`      | ✅ fully supported  |
-| Codex  | `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl` | ⏳ waiting on herdr  |
+| Agent  | Transcript looked up at                        | Status             |
+| ------ | ---------------------------------------------- | ------------------ |
+| Claude | `~/.claude/projects/*/<session-id>.jsonl`      | ✅ fully supported |
+| Codex  | `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl` | ✅ fully supported |
 
-> **Codex note:** herdr does not yet report a session id for Codex panes, so
-> `herdr-cull` can't tie a Codex pane to its rollout file to age it. Rather than
-> guess, it lists such panes in the **active-recently** group as `— idle` (age
-> unknown) — visible and closable by hand, never mis-aged. The lookup above
-> already works and will start aging Codex panes automatically once herdr exposes
-> a session handle. Correlating by directory was considered and rejected: two
-> Codex panes in the same repo would be indistinguishable, and mis-attributing a
-> pane is exactly the mistake this tool exists to avoid.
+Both agents are aged the same way, and both rely on herdr's per-agent integration
+(`herdr integration install claude` / `codex`) to report the session id that
+`herdr-cull` resolves to the transcript above.
+
+> **No transcript yet?** Any pane whose transcript can't be located — a
+> just-started session, or an agent herdr can't map to a session id — is listed
+> in the **active-recently** group as `— idle` (age unknown): still visible and
+> selectable, closable by hand, and never mis-aged. Its idle time starts showing
+> the moment the transcript appears.
 
 ## Usage
 
